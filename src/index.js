@@ -5,7 +5,8 @@ import Routes from './route/Router';
 import store from './store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-console.log(store);
+import './server/mock';
+
 ReactDOM.render(
     <Provider store={store}>
         <Routes />

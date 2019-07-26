@@ -8,3 +8,5 @@ yarn install
 
 yarn start
 ```
+## 记录
+mockjs居然不支持fetch？？？浪费了好多时间来取数据！换成axios一发入魂。

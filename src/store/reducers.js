@@ -1,7 +1,8 @@
 const initData = {
     count: 0,
     todoList: [],
-    allTodos: []
+    allTodos: [],
+    goodsData:[]
 }
 
 
@@ -23,47 +24,52 @@ const reducers = (state = initData, action) => {
                 todoList: [
                     ...state.todoList,
                     {
-                    value: action.value,
-                    id: action.id,
-                    isCompleted: false
+                        value: action.value,
+                        id: action.id,
+                        isCompleted: false
                     }
                 ],
                 allTodos: [
                     ...state.todoList,
                     {
-                    value: action.value,
-                    id: action.id,
-                    isCompleted: false
+                        value: action.value,
+                        id: action.id,
+                        isCompleted: false
                     }
                 ]
             }
         case 'IS_COMPLETED':
-            let todoList = state.todoList.map(item=>
-            (item.id === action.id) ? {...item,isCompleted:!item.isCompleted} : item)
+            let todoList = state.todoList.map(item =>
+                (item.id === action.id) ? { ...item, isCompleted: !item.isCompleted } : item)
             return {
                 ...state,
-                todoList:[...todoList],
-                allTodos:[...todoList]
+                todoList: [...todoList],
+                allTodos: [...todoList]
             }
         case 'FILTER_ALL':
-            let allTodos = state.allTodos?state.allTodos:state.todoList;
+            let allTodos = state.allTodos ? state.allTodos : state.todoList;
             return {
                 ...state,
                 allTodos: [...allTodos],
                 todoList: [...allTodos]
             }
         case 'FILTER_COMPLETED':
-            let completedTodos = state.allTodos.filter(item=>item.isCompleted);
+            let completedTodos = state.allTodos.filter(item => item.isCompleted);
             return {
                 ...state,
                 todoList: [...completedTodos]
             }
         case 'FILTER_NOTCOMPLETED':
-                let activeTodos = state.allTodos.filter(item=>!item.isCompleted);
-                return {
-                    ...state,
-                    todoList: [...activeTodos]
-                }
+            let activeTodos = state.allTodos.filter(item => !item.isCompleted);
+            return {
+                ...state,
+                todoList: [...activeTodos]
+            }
+        case 'GOODS_DATA':
+            return {
+                ...state,
+                goodsData: action.data
+            }
         default:
             return state
     }
