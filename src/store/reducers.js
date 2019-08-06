@@ -4,11 +4,13 @@ const initData = {
     allTodos: [],
     goodsData: [],
     cartData: [],
-    soldOut: false
+    totalPrice: 0
 }
 
 
 const reducers = (state = initData, action) => {
+    let totalPrice = 0; //购物车商品总价格
+
     switch (action.type) {
         case 'INCREASE':
             return {
@@ -96,13 +98,47 @@ const reducers = (state = initData, action) => {
             } else {
                 otherCart.push(cart);
             }
+
+            otherCart.map(item=>{
+                totalPrice = totalPrice + item.price;
+            })
             //更新库存
             newGoods.splice(index,1,stock);
-
             return {
                 ...state,
+                totalPrice: totalPrice,
                 goodsData: newGoods,
                 cartData: otherCart
+            }
+
+        case 'DEL_FROM_CART':
+            let delGoods = state.goodsData.filter(item=>item.id === action.id);
+            let delCart = state.cartData.filter(item=>item.id === action.id);
+            let newCart = state.cartData ? state.cartData : [];  //购物车已添加的商品
+            let newStock = { ...delGoods[0], inventory: delGoods[0].inventory + 1 };  //库存数量增加
+            let stockIndex = state.goodsData.indexOf(delGoods[0]);  //索引
+            let newProducts = state.goodsData;
+
+            state.cartData.map((item, index) => {
+                if (item.id === action.id) {
+                    //若新添加的商品在购物车已存在相同id，则减少数量和金额
+                    delCart = { ...item, price: item.price - delGoods[0].price, inventory: item.inventory - 1 };
+                    //将修改过后的购物车商品添加进原来的位置
+                    item.inventory-1 == 0 ? newCart.splice(index,1) : newCart.splice(index, 1, delCart); 
+                }
+            });
+
+
+            newCart.map(item=>{
+                totalPrice = totalPrice + item.price;
+            })
+
+            newProducts.splice(stockIndex,1,newStock);
+            return {
+                ...state,
+                totalPrice: totalPrice,
+                goodsData: newProducts,
+                cartData: newCart
             }
         default:
             return state

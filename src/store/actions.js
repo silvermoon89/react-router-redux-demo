@@ -1,5 +1,4 @@
 let todoId = 0;
-let quantity = 1;
 
 export const Increase = () => {
     return {
@@ -46,7 +45,7 @@ export const filterActiveTodos = () => {
     }
 }
 
-export const  goodsData =(data)=> {
+export const goodsData = (data) => {
     return {
         type: 'GOODS_DATA',
         data: data
@@ -56,7 +55,13 @@ export const  goodsData =(data)=> {
 export const addToCart = (id) => {
     return {
         type: 'ADD_TO_CART',
-        id:id,
-        quantity:quantity++
+        id: id
+    }
+}
+
+export const delFromCart = id => {
+    return {
+        type: 'DEL_FROM_CART',
+        id: id
     }
 }
