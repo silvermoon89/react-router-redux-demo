@@ -5,13 +5,13 @@ import {addTodo,isCompleted,filterAll,filterCompleted,filterActiveTodos} from '.
 let input;
 class TodoList extends Component {
     render() {
-        const {addTodo,toggleTodo,filterAll,filterCompleted,filterActiveTodos} = this.props;
+        const {addTodo,toggleTodo,filterAll,filterCompleted,filterActiveTodos,data} = this.props;
         return (
             <div>
                 <input type="text" style={{marginLeft:'10px'}} ref={node=> input = node}/>
                 <button style={{marginLeft:'10px'}} onClick={addTodo}>ADD</button>
                 <ul>
-                    {this.props.data.todoList.map(item=>{
+                    {data.todoList.map(item=>{
                         return <li key={item.id} onClick={()=>toggleTodo(item.id)} style={{textDecoration: item.isCompleted ? 'line-through' :''}}>{item.value}</li>
                     })}
                 </ul>

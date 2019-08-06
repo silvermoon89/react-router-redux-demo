@@ -25,7 +25,7 @@ class Routes extends Component {
                 <Route exact path='/' component={Counter}/>
                 <Route exact path='/todolist' component={TodoList}/>
                 <Route exact path='/shopcart' component={ShopCart}/>
-                <Redirect to='/shopcart'/>
+                <Redirect to='/'/>
             </BrowserRouter>
         );
     }

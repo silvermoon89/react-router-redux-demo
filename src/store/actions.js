@@ -1,4 +1,5 @@
 let todoId = 0;
+let quantity = 1;
 
 export const Increase = () => {
     return {
@@ -45,20 +46,6 @@ export const filterActiveTodos = () => {
     }
 }
 
-export const getData = (dispatch) => {
-    fetch('../server/data.json', {
-        method: 'GET',
-    }).then(response => {
-        console.log(response);
-        return response.json()
-    }).then(res => {
-        console.log(res);
-        dispatch(goodsData(res))
-    }).catch(err=>{
-        console.log(err)
-    })
-}
-
 export const  goodsData =(data)=> {
     return {
         type: 'GOODS_DATA',
@@ -66,8 +53,10 @@ export const  goodsData =(data)=> {
     }
 }
 
-export const addToCart = () => {
+export const addToCart = (id) => {
     return {
-        type: 'ADDTOCART'
+        type: 'ADD_TO_CART',
+        id:id,
+        quantity:quantity++
     }
 }
